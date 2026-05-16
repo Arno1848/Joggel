@@ -1,0 +1,143 @@
+/* --- ergebnisoverlay.css-  14.05.2026 -- V1.6 ----*/
+
+#ergebnis-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.overlay-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 360px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  margin: auto;
+  margin-top: 80px;
+}
+
+.player-labels {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  gap: 10px;
+}
+
+.player-labels .satz-label {
+  width: 70px;
+  text-align: left;
+}
+
+.player-labels .score-wrapper-label {
+  width: 60px;
+  text-align: center;
+}
+
+.player-labels .colon {
+  width: 20px;
+}
+
+.satz {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 10px;
+}
+
+.satz-label {
+  width: 70px;
+  text-align: left;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.score-wrapper {
+  position: relative;
+  width: 60px;
+  height: 40px;
+}
+
+.score-input {
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  text-align: center;
+  padding-right: 24px;
+  border: 1px solid #ccc;
+  -moz-appearance: textfield;
+  box-sizing: border-box;
+}
+
+.spin-buttons {
+  position: absolute;
+  top: 0;
+  right: 2px;
+  width: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.spin-buttons button {
+  all: unset;
+  width: 100%;
+  height: 50%;
+  font-size: 12px;
+  line-height: 1;
+  background: #eee;
+  border: 1px solid #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.spin-buttons button:active {
+  background: #ccc;
+}
+
+.colon {
+  font-size: 24px;
+  margin: 0 5px;
+  width: 10px;
+  text-align: center;
+}
+
+.overlay-checkbox {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.overlay-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.overlay-buttons button {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  background-color: #007acc;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.overlay-buttons button:hover {
+  background-color: #005fa3;
+}

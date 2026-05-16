@@ -1,0 +1,223 @@
+<!-- index.html 16.05.2026 -->
+
+<!DOCTYPE html>
+<html lang="de">
+
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Joggel 2026</title>
+      <link rel="stylesheet" href="css/Global.css">
+      <link rel="stylesheet" href="css/Ergebnisoverlay.css">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+<!-- Header -->
+    <div class="app-header">
+      <div class="header-top-row">
+        <h1 class="header-title">Joggel 2026 <span class="version-number">V6.05.16-1</span></h1>
+      </div>
+      <nav class="main-nav" id="main-nav">
+        <ul>
+          <li><a href="#" data-section="ergebnis-eingabe">Eingabe</a></li>
+          <li><a href="#" data-section="spieler-uebersicht">Spieler</a></li>
+          <li><a href="#" data-section="alle-ergebnisse">Ergebnisse</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Ladebereich -->
+    <div id="loading-overlay" class="loading-state">
+      <p id="loading-text">Daten werden geladen...</p> 
+
+      <div class="loading-step">
+        <span>Spielerdaten werden geladen …</span>
+        <span id="spinner-spieler" class="spinner small"></span>
+      </div>
+
+      <div class="loading-step">
+        <span>Ergebnisdaten werden geladen …</span>
+        <span id="spinner-ergebnisse" class="spinner small"></span>
+      </div>
+    </div>
+
+    <!-- Sections -->
+    <!-- ergebnis-eingabe -->
+    <section id="ergebnis-eingabe" class="app-section active">
+      <h2>Ergebnis Eingabe</h2>
+
+      <div id="player-selection">
+        <label for="spieler-select">Spieler wählen:</label>
+        <select id="spieler-select" class="form-control" disabled>
+            <option value="">Spieler werden geladen...</option>
+        </select>
+      </div>
+
+      <div id="match-entry-form">
+        <p id="match-selection-hint" class="form-hint hidden">Wähle ein Match aus der Tabelle unten.</p>
+        <div id="match-label-display">
+            Match: 
+        </div>
+
+        <div class="input-group-container">
+
+          <div class="input-group ergebnis-input">
+            <label for="ergebnis-input">Ergebnis:</label>
+            <input type="text" id="ergebnis-input" placeholder=" ">
+          </div>
+
+          <!-- punkte-input obsolet, aber bleibt erstmal drin -->
+          <div class="input-group punkte-input" style="display: none;">
+            <label for="punkte-input">Punkte:</label>
+            <input type="text" id="punkte-input" placeholder=" ">
+          </div>
+          <!--  -->
+
+          <div class="input-group sieger-input">
+             <label for="sieger-select">Sieger:</label>
+              <select id="sieger-select" class="form-control" disabled>
+                  <option value="">Sieger wählen</option>
+             </select>
+          </div>
+
+          <div class="input-group datum-input">
+            <label for="datum-input">Datum:</label>
+            <input type="date" id="datum-input">
+          </div>
+
+        </div>  <!-- "input-group-container" -->
+
+<!--         <p class="form-explanation">Bei Spielaufgabe bitte "w.o." hinter das Ergebnis  (z.B. "2:0, w.o.").</p>   -->
+
+        <button id="save-single-match-button" class="hidden">Match speichern</button> 
+
+      </div>  <!-- "match-entry-form" -->
+
+      <div id="match-display"> 
+        <div id="matches-list">
+        </div>
+
+      </div>  <!-- Ende "match-display" -->
+
+    </section>
+
+    <!-- spieler-uebersicht -->
+    <section id="spieler-uebersicht" class="app-section hidden">
+      <h2>Spieler Übersicht</h2>
+      <div class="table-container">
+        <div id="spieler-liste-content">
+          </div>
+      </div>
+    </section>
+
+    <!-- alle-ergebnisse -->
+    <section id="alle-ergebnisse" class="app-section hidden">
+      <h2>Alle Ergebnisse</h2>
+      <div id="alle-ergebnisse-content" class="section-content">
+          <div id="all-matches-table-container"></div>
+          <div class="action-buttons-container">
+            <button id="delete-selected-match-button" class="delete-button">Ausgewähltes Ergebnis löschen</button>
+          </div>
+      </div>
+    </section>
+
+
+    <!-- Ergebnisoverlay-->
+    <div id="ergebnis-overlay">
+      <div class="overlay-content">
+        <h3>Ergebnis-Eingabe</h3>
+        <!-- Überschriften direkt über den Scores (zentriert) -->
+        <div class="player-labels">
+          <div class="satz-label"></div>
+          <div class="score-wrapper-label" id="overlay-spieler1">Spieler 1</div>
+          <div class="colon"></div>
+          <div class="score-wrapper-label" id="overlay-spieler2">Spieler 2</div>
+        </div>
+    
+        <!-- Satz 1 -->
+        <div class="satz">
+          <div class="satz-label">Satz 1:</div>
+          <div class="score-wrapper">
+            <input type="number" id="score1" class="score-input" value="0" min="0" max="7">
+            <div class="spin-buttons">
+              <button onclick="changeValue('score1', 1)">▲</button>
+              <button onclick="changeValue('score1', -1)">▼</button>
+            </div>
+          </div>
+          <span class="colon">:</span>
+          <div class="score-wrapper">
+            <input type="number" id="score2" class="score-input" value="0" min="0" max="7">
+            <div class="spin-buttons">
+              <button onclick="changeValue('score2', 1)">▲</button>
+              <button onclick="changeValue('score2', -1)">▼</button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Satz 2 -->
+        <div class="satz">
+          <div class="satz-label">Satz 2:</div>
+          <div class="score-wrapper">
+            <input type="number" id="score3" class="score-input" value="0" min="0">
+            <div class="spin-buttons">
+              <button onclick="changeValue('score3', 1)">▲</button>
+              <button onclick="changeValue('score3', -1)">▼</button>
+            </div>
+          </div>
+          <span class="colon">:</span>
+          <div class="score-wrapper">
+            <input type="number" id="score4" class="score-input" value="0" min="0">
+            <div class="spin-buttons">
+              <button onclick="changeValue('score4', 1)">▲</button>
+              <button onclick="changeValue('score4', -1)">▼</button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Satz 3 -->
+        <div class="satz">
+          <div class="satz-label">Satz 3:</div>
+          <div class="score-wrapper">
+            <input type="number" id="score5" class="score-input" value="0" min="0">
+            <div class="spin-buttons">
+              <button onclick="changeValue('score5', 1)">▲</button>
+              <button onclick="changeValue('score5', -1)">▼</button>
+            </div>
+          </div>
+          <span class="colon">:</span>
+          <div class="score-wrapper">
+            <input type="number" id="score6" class="score-input" value="0" min="0">
+            <div class="spin-buttons">
+              <button onclick="changeValue('score6', 1)">▲</button>
+              <button onclick="changeValue('score6', -1)">▼</button>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Walkover -->
+        <div class="overlay-checkbox">
+          <label><input type="checkbox" id="checkWO"> Walk over</label>
+        </div>
+    
+        <!-- Buttons -->
+        <div class="overlay-buttons">
+          <button class="ok-button" onclick="übernehmenErgebnis()">Übernehmen</button>
+          <button class="cancel-button" onclick="closeOverlay()">Abbrechen</button>
+        </div>
+      </div>
+    </div>  <!-- Ende Ergebnisoverlay -->
+
+  </div>  <!-- Ende Container -->
+
+  <script src="APPS_SCRIPT_URL.js"></script>
+  <script src="js/Start.js"></script>
+  <script src="js/sections-helpers.js"></script>
+  <script src="js/sections-input.js"></script>
+  <script src="js/sections-players&results.js"></script>
+  <script src="js/ergebnisoverlay.js"></script>
+  
+</body>
+</html>
