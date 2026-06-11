@@ -1,4 +1,4 @@
-// "Start.js" - 15.05.2026  ----------
+// "Start.js" - 11.06.2026  ----------
 
 // ***** GLOBALE VARIABLEN *****
 
@@ -206,6 +206,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (selectedPlayerId) {
                 const matchDisplayDiv = document.getElementById('match-display');
                 if (matchDisplayDiv) matchDisplayDiv.classList.remove('hidden');
+
+                const matchEntryForm = document.getElementById('match-entry-form');
+                if (matchEntryForm) matchEntryForm.classList.remove('hidden'); // <-- DAS HAT GEFEHLT!
+                
                 loadPlayerMatches(selectedPlayerId);
             } else {
                 // Wenn "--- Spieler wählen ---" ausgewählt ist, die Match-Ansicht ausblenden
@@ -270,6 +274,15 @@ function showSection(sectionId) {
     } else if (sectionId === 'ergebnis-eingabe') {
         loadPlayersForSelection();
         populatePlayerSelect(allSpielerDataRaw);
+
+        // Sicherstellen, dass bei Sektionswechsel ohne gewählten Spieler alles sauber versteckt bleibt:
+        if (!selectedPlayerId) {
+            const matchEntryForm = document.getElementById('match-entry-form');
+            const matchDisplayDiv = document.getElementById('match-display');
+            
+            if (matchEntryForm) matchEntryForm.classList.add('hidden');
+            if (matchDisplayDiv) matchDisplayDiv.classList.add('hidden');
+        }
 
     } else if (sectionId === 'alle-ergebnisse') {
         displayAlleErgebnisse(allErgebnisseDataRaw, allErgebnisseHeaders);
