@@ -1,4 +1,4 @@
-// "Start.js" - 11.06.2026  ----------
+// "Start.js" - 14.06.2026  ----------
 
 // ***** GLOBALE VARIABLEN *****
 
@@ -115,6 +115,9 @@ function loadAllErgebnisseInitial() {
             }
 
             showSection('ergebnis-eingabe');
+
+            // --- NEU: Präambel-Text asynchron im Hintergrund nachladen ---
+            loadPraambelTextDynamic();
         })
         .catch(error => {
             console.error("Fehler beim Laden der Ergebnisdaten:", error);
@@ -368,4 +371,23 @@ function handleError(error) {
 //---------------------------------------
     showPopup('Fehler: ' + error.message, 'error');
     console.error('Apps Script Error:', error);
+}
+
+//---------------------------------------
+function loadPraambelTextDynamic() {
+//---------------------------------------
+    apiCall('getPraambelText')
+        .then(htmlContent => {
+            const container = document.getElementById("dynamischer-praambel-text");
+            if (container) {
+                container.innerHTML = htmlContent;
+            }
+        })
+        .catch(error => {
+            console.error("Fehler beim Laden des Präambel-Textes:", error);
+            const container = document.getElementById("dynamischer-praambel-text");
+            if (container) {
+                container.innerHTML = "<p>Der Infotext konnte nicht geladen werden.</p>";
+            }
+        });
 }
